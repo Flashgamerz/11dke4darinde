@@ -13,6 +13,7 @@
             padding: 0;
             display: flex;
             height: 100vh;
+            flex-direction: row; /* Default to row for desktop */
         }
         .sidebar {
             width: 300px;
@@ -52,7 +53,8 @@
             background-color: #1e1e1e;
             border-radius: 10px;
             padding: 20px;
-            width: 400px;
+            width: 100%;
+            max-width: 400px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
@@ -63,6 +65,30 @@
         .result-card p {
             font-size: 18px;
             margin: 10px 0;
+        }
+
+        /* Media query for mobile devices (screens smaller than 768px) */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column; /* Stack sidebar on top of main content */
+                height: auto; /* Allow height to adjust naturally on mobile */
+            }
+            .sidebar {
+                width: 100%; /* Full width on mobile */
+                height: auto; /* Auto height */
+                box-shadow: none; /* Remove shadow for mobile */
+            }
+            .main-content {
+                width: 100%; /* Full width */
+                padding: 10px; /* Reduce padding on mobile */
+            }
+            .result-card {
+                width: 100%; /* Full width within container */
+                padding: 15px; /* Adjust padding */
+            }
+            .result-card p {
+                font-size: 16px; /* Slightly smaller text on mobile */
+            }
         }
     </style>
 </head>
