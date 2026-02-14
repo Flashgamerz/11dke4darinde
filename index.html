@@ -3,10 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Darinde</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 300px;
+            background-color: #1e1e1e;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+            color: #bb86fc;
+        }
+        .sidebar select, .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #333333;
+            color: #ffffff;
+            border: 1px solid #555555;
+            border-radius: 5px;
+        }
+        .sidebar button {
+            background-color: #bb86fc;
+            cursor: pointer;
+        }
+        .sidebar button:hover {
+            background-color: #9c4dcc;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .result-card {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .result-card h3 {
+            color: #bb86fc;
+            margin-top: 0;
+        }
+        .result-card p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>Current Date and Time (UTC): 2026-02-14 07:09:01</p>
+    <div class="sidebar">
+        <h2>Select Traits</h2>
+        <select id="height-select">
+            <option value="">Select Height</option>
+            <option value="Medium">Medium</option>
+            <option value="Tall">Tall</option>
+        </select>
+        <select id="colour-select">
+            <option value="">Select Colour</option>
+            <option value="kaala">kaala</option>
+            <option value="gora">gora</option>
+        </select>
+        <select id="body-select">
+            <option value="">Select Body</option>
+            <option value="Body builder">Body builder</option>
+            <option value="No body Builder">No body Builder</option>
+        </select>
+        <select id="jaat-select">
+            <option value="">Select Jaat</option>
+            <option value="Uunchi jaat">Uunchi jaat</option>
+            <option value="nicchi jaat">nicchi jaat</option>
+        </select>
+        <button onclick="findDarinda()">Find Darinda</button>
+    </div>
+    <div class="main-content">
+        <div class="result-card" id="result">
+            <h3>Welcome to Darinde</h3>
+            <p>Select traits from the sidebar and click "Find Darinda" to see if there's a match!</p>
+        </div>
+    </div>
+
+    <script>
+        const friends = [
+            {
+                name: "Nitin Deshwal",
+                height: "Tall",
+                colour: "gora",
+                body: "No body Builder",
+                jaat: "Uunchi jaat"
+            },
+            {
+                name: "Daksh Nitharvar",
+                height: "Medium",
+                colour: "kaala",
+                body: "Body builder",
+                jaat: "Uunchi jaat"
+            },
+            {
+                name: "Anik",
+                height: "Medium",
+                colour: "gora",
+                body: "No body Builder",
+                jaat: "Uunchi jaat"
+            },
+            {
+                name: "Himanshu Chamar",
+                height: "Medium",
+                colour: "kaala",
+                body: "No body Builder",
+                jaat: "nicchi jaat"
+            }
+        ];
+
+        function findDarinda() {
+            const height = document.getElementById('height-select').value;
+            const colour = document.getElementById('colour-select').value;
+            const body = document.getElementById('body-select').value;
+            const jaat = document.getElementById('jaat-select').value;
+
+            if (!height || !colour || !body || !jaat) {
+                document.getElementById('result').innerHTML = `
+                    <h3>No Match</h3>
+                    <p>Please select all traits.</p>
+                `;
+                return;
+            }
+
+            const match = friends.find(friend =>
+                friend.height === height &&
+                friend.colour === colour &&
+                friend.body === body &&
+                friend.jaat === jaat
+            );
+
+            const resultDiv = document.getElementById('result');
+            if (match) {
+                resultDiv.innerHTML = `
+                    <h3>Match Found!</h3>
+                    <p>is chutiye ka naam ${match.name} hai</p>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <h3>No Match</h3>
+                    <p>aisa koi darinda nhi h</p>
+                `;
+            }
+        }
+    </script>
 </body>
 </html>
